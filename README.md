@@ -3,10 +3,31 @@
 
 ## JVM 8个原子指令
 
+
+
+| 命令   | 作用内存区域 | 描述                              |
+| ------ | ------------ | --------------------------------- |
+| lock   | 主内存       | 标识变量为线程独占                |
+| unlock | 主内存       | 解锁线程独占变量                  |
+| read   | 主内存       | 读取内容到工作内存                |
+| load   | 工作内存     | read后的值,放到线程的本地变量副本 |
+| use    | 工作内存     | 传值给执行引擎                    |
+| assign | 工作内存     | 执行引擎将结果负值给线程本地变量  |
+| store  | 工作内存     | 存储到主存,给write备用            |
+| write  | 主内存       | 写变量                            |
+
+
+
 ## dubbo 和 long 64位的数据类型加volatile后的原子性
-参考JSR
+
+<img src="https://tva1.sinaimg.cn/large/008i3skNly1grz87f1zewj31o50u0to9.jpg" alt="image-20210629164014263" style="zoom:150%;" />
+
+
 
 ## Linux的lock指令和JVM的lock指令
+
+
+
 ~~~shell
 ## 查看 lock
 man 2 lock
@@ -69,6 +90,7 @@ DESCRIPTION
        are being performed on a particular futex word.
 ~~~
 
-linux 没有实现lock指令,提供了 futex - fast user-space locking
 
+
+linux 没有实现lock指令,提供了 futex - fast user-space locking
 
