@@ -94,3 +94,7 @@ DESCRIPTION
 
 linux 没有实现lock指令,提供了 futex - fast user-space locking
 
+
+
+## [字节码相关](./src/main/java/com/fake/jvm/bytecode/README.md )
+
