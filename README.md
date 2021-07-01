@@ -90,11 +90,11 @@ DESCRIPTION
        are being performed on a particular futex word.
 ~~~
 
-
-
 linux 没有实现lock指令,提供了 futex - fast user-space locking
 
+## 1.[字节码相关](./src/main/java/com/fake/jvm/bytecode/README.md )
+
+## 2.[线程同步](./src/main/java/com/fake/jvm/sync_lock/README.md)
 
 
-## [字节码相关](./src/main/java/com/fake/jvm/bytecode/README.md )
 

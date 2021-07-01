@@ -12,14 +12,15 @@ publisher和consumer使用同一把锁获得进入临界区的资格
 
 唤醒时,会同时唤醒publisher和consumer
 
-## 使用ReentrantLock + Condition 完成同步处理
+## 方案二 使用ReentrantLock + Condition 完成同步处理
 
 publisher和consumer使用同一把锁获得进入临界区的资格
 
 唤醒时,通过不同的Condition,publisher能定向唤醒consumer,consumer能定向唤醒publisher
 
-## 使用ReadWriteLock完成同步处理(不支持队列为空时阻塞consumer)
+## 方案三 使用ReadWriteLock完成同步处理(不支持队列为空时阻塞consumer)
 
 WriteLock: publisher和consumer会产生竞争,只允许一个线程操作临界区
 
 ReadLock: consumer之间不会产生竞争,consumer会与publisher产生竞争
+
