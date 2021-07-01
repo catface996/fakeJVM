@@ -1,4 +1,4 @@
-package com.fake.jvm.sync_lock.use_read_write_lock;
+package com.fake.jvm.锁.发布订阅.use_read_write_lock;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;

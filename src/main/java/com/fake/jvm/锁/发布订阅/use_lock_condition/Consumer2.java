@@ -1,18 +1,22 @@
-package com.fake.jvm.sync_lock.use_read_write_lock;
+package com.fake.jvm.锁.发布订阅.use_lock_condition;
 
 import java.util.concurrent.TimeUnit;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author by catface
- * @date 2021/6/30 5:40 下午
+ * @date 2021/6/30 3:52 下午
  */
-public class Consumer3 implements Runnable {
+@Slf4j
+public class Consumer2 implements Runnable {
+
     @Override
     public void run() {
         for (; ; ) {
             try {
-                TimeUnit.SECONDS.sleep(1);
-                MyQ3.consumer();
+                TimeUnit.SECONDS.sleep(2);
+                MyQ2.consume();
             } catch (Exception e) {
                 e.printStackTrace();
             }

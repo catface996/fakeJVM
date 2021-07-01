@@ -1,4 +1,4 @@
-package com.fake.jvm.sync_lock.use_synchronize;
+package com.fake.jvm.锁.发布订阅.use_synchronize;
 
 import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;

@@ -49,3 +49,116 @@ cafe babe 0000 0034 0010 0a00 0300 0d07
 [0010] 代表常量池中常量的个数,16进制换算成10进制是16个,由于常量池常量编号是从1开始,所以0010代表15个
 
 ...
+
+Intellij Idea Show ByteCode 插件查看字节码文件:
+
+* 一般信息:
+
+![image-20210701150454372](https://tva1.sinaimg.cn/large/008i3skNly1gs1govzayjj310o0ro0xh.jpg)
+
+* 默认构造方法的代码:
+
+![image-20210701150605622](https://tva1.sinaimg.cn/large/008i3skNly1gs1gq6dl3kj30yr0u0wir.jpg)
+
+* 其他信息可自行查看..
+
+## volatile在字节码层面的实现
+
+~~~java
+package com.fake.jvm.bytecode.code;
+
+/**
+ * @author by catface
+ * @date 2021/7/1 3:07 下午
+ */
+public class VolatileDemo {
+
+    private volatile static VolatileDemo VOLATILE_INSTANCE;
+    private static VolatileDemo UN_VOLATILE_INSTANCE;
+
+    public static VolatileDemo getVolatileInstance() {
+        if (VOLATILE_INSTANCE == null) {
+            synchronized (VolatileDemo.class) {
+                if (VOLATILE_INSTANCE == null) {
+                    VOLATILE_INSTANCE = new VolatileDemo();
+                }
+            }
+        }
+        return VOLATILE_INSTANCE;
+    }
+
+    public static VolatileDemo getUnVolatileInstance() {
+        if (UN_VOLATILE_INSTANCE == null) {
+            synchronized (VolatileDemo.class) {
+                if (UN_VOLATILE_INSTANCE == null) {
+                    UN_VOLATILE_INSTANCE = new VolatileDemo();
+                }
+            }
+        }
+        return UN_VOLATILE_INSTANCE;
+    }
+}
+~~~
+
+VOLATILE_INSTANCE;
+
+![image-20210701154824673](https://tva1.sinaimg.cn/large/008i3skNly1gs1hz76g2uj312o0hadhw.jpg)
+
+UN_VOLATILE_INSTANCE;
+
+![image-20210701155000956](https://tva1.sinaimg.cn/large/008i3skNly1gs1hzqfiydj311m0a6dho.jpg)
+
+getVolatileInstance 和 getUnVolatileInstance
+
+~~~shell
+## getVolatileInstance
+ 0 getstatic #2 <com/fake/jvm/bytecode/code/VolatileDemo.VOLATILE_INSTANCE>
+ 3 ifnonnull 37 (+34)
+ 6 ldc #3 <com/fake/jvm/bytecode/code/VolatileDemo>
+ 8 dup
+ 9 astore_0
+10 monitorenter
+11 getstatic #2 <com/fake/jvm/bytecode/code/VolatileDemo.VOLATILE_INSTANCE>
+14 ifnonnull 27 (+13)
+17 new #3 <com/fake/jvm/bytecode/code/VolatileDemo>
+20 dup
+21 invokespecial #4 <com/fake/jvm/bytecode/code/VolatileDemo.<init>>
+24 putstatic #2 <com/fake/jvm/bytecode/code/VolatileDemo.VOLATILE_INSTANCE>
+27 aload_0
+28 monitorexit
+29 goto 37 (+8)
+32 astore_1
+33 aload_0
+34 monitorexit
+35 aload_1
+36 athrow
+37 getstatic #2 <com/fake/jvm/bytecode/code/VolatileDemo.VOLATILE_INSTANCE>
+40 areturn
+
+## getUnVolatileInstance
+ 0 getstatic #5 <com/fake/jvm/bytecode/code/VolatileDemo.UN_VOLATILE_INSTANCE>
+ 3 ifnonnull 37 (+34)
+ 6 ldc #3 <com/fake/jvm/bytecode/code/VolatileDemo>
+ 8 dup
+ 9 astore_0
+10 monitorenter
+11 getstatic #5 <com/fake/jvm/bytecode/code/VolatileDemo.UN_VOLATILE_INSTANCE>
+14 ifnonnull 27 (+13)
+17 new #3 <com/fake/jvm/bytecode/code/VolatileDemo>
+20 dup
+21 invokespecial #4 <com/fake/jvm/bytecode/code/VolatileDemo.<init>>
+24 putstatic #5 <com/fake/jvm/bytecode/code/VolatileDemo.UN_VOLATILE_INSTANCE>
+27 aload_0
+28 monitorexit
+29 goto 37 (+8)
+32 astore_1
+33 aload_0
+34 monitorexit
+35 aload_1
+36 athrow
+37 getstatic #5 <com/fake/jvm/bytecode/code/VolatileDemo.UN_VOLATILE_INSTANCE>
+40 areturn
+~~~
+
+volatile在字节码层面除了变量的访问标志符有差异,其他的并无不同.
+

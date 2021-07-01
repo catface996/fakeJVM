@@ -1,4 +1,4 @@
-package com.fake.jvm.bytecode;
+package com.fake.jvm.bytecode.code;
 
 /**
  * @author by catface
