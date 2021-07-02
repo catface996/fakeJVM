@@ -1,4 +1,4 @@
-package com.fake.jvm.bytecode.code;
+package com.fake.jvm.锁._1synchronized.code;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -8,7 +8,7 @@ import org.junit.Test;
 
 /**
  * @author by catface
- * @date 2021/7/1 4:00 下午
+ * @date 2021/7/2 3:11 下午
  */
 @Slf4j
 public class SynchronizedDemoTest {

@@ -1,12 +1,9 @@
-package com.fake.jvm.bytecode.code;
-
-import lombok.extern.slf4j.Slf4j;
+package com.fake.jvm.锁._1synchronized.code;
 
 /**
  * @author by catface
  * @date 2021/7/1 3:52 下午
  */
-@Slf4j
 public class SynchronizedDemo {
 
     private static final Object LOCK = new Object();
