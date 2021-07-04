@@ -1,5 +1,7 @@
 # synchronized
 
+
+
 ## synchronized 在字节码层面的实现
 
 java文件内容:
@@ -131,12 +133,12 @@ Java虚拟机指令序列:
 
 ## synchronized 在字节码层面的实现
 
-​ synchronized 在不同的虚拟和不同的操作系统上的实现会有差异,以Oracle 的HotSpot 1.8 Linux版本为例,是通过调用Linux操作系统的futex()
+synchronized 在不同的虚拟和不同的操作系统上的实现会有差异,以Oracle 的HotSpot 1.8 Linux版本为例,是通过调用Linux操作系统的futex()
 来实现的,futex在linux操作系统中,是通过一种特殊的信号量mutex(互斥信号量来实现)
 ,synchronized膨胀为重量级锁时,如果当前线程无法获得锁被挂起,会产生系统中断,对当前线程做现场保护,并将其加入到阻塞队列,等待操作系统重新调度.所谓的"重",是指损失在产生系统中断,内核调用,以及操作系统对进程(
 jvm线程在linux系统中是通过linux的进程实现的)的调度上的CPU执行时间.
 
-​ Linux 的futex()系统调用描述入下(部分截取):
+Linux 的futex()系统调用描述入下(部分截取):
 
 ~~~shell
 ## 可以通过 man 2 futex 获取该系统调用的使用手册.
